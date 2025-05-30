@@ -16,6 +16,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
+CORS_ALLOW_ALL_ORIGINS = True
+
+
 
 # Application definition
 
@@ -37,6 +41,7 @@ INSTALLED_APPS = [
     'api',
     
     # Third party apps
+    'corsheaders',
     'crispy_forms',
     'crispy_bootstrap5',
     'rest_framework',
@@ -61,6 +66,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
