@@ -1,0 +1,35 @@
+{% extends "staff_management/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login - Healthcare Staff Scheduling{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">Login</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-primary" type="submit">Login</button>
+                    </div>
+                </form>
+                <div class="mt-3">
+                    <small class="text-muted">
+                        <a href="{% url 'password_reset' %}">Forgot password?</a>
+                    </small>
+                </div>
+                <div class="border-top pt-3 mt-3">
+                    <small class="text-muted">
+                        Need an account? <a href="{% url 'register' %}">Sign Up Now</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

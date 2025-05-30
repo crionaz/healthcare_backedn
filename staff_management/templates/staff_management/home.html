@@ -1,0 +1,73 @@
+{% extends "staff_management/base.html" %}
+
+{% block title %}Home - Healthcare Staff Scheduling{% endblock %}
+
+{% block content %}
+<div class="jumbotron bg-light p-5 rounded">
+    <h1 class="display-4">Welcome to Healthcare Staff Scheduling System</h1>
+    <p class="lead">Efficiently manage staff schedules, track attendance, and ensure optimal staffing coverage.</p>
+    <hr class="my-4">
+    
+    {% if user.is_authenticated %}
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-users me-2"></i>Staff Management</h5>
+                        <p class="card-text">View, add, edit, and delete staff members. Manage their details and roles.</p>
+                        <a href="{% url 'staff_list' %}" class="btn btn-primary">Manage Staff</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-clock me-2"></i>Shift Management</h5>
+                        <p class="card-text">Create and configure different types of shifts with various parameters.</p>
+                        <a href="{% url 'shift_list' %}" class="btn btn-primary">Manage Shifts</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-calendar-alt me-2"></i>Schedule View</h5>
+                        <p class="card-text">View and manage weekly schedules. Assign shifts to staff members.</p>
+                        <a href="{% url 'schedule_view' %}" class="btn btn-primary">View Schedule</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-exchange-alt me-2"></i>Shift Swaps</h5>
+                        <p class="card-text">Request and manage shift swaps with other staff members.</p>
+                        <a href="{% url 'swap_requests_list' %}" class="btn btn-primary">View Swap Requests</a>
+                    </div>
+                </div>
+            </div>
+            
+            {% if user.staff_profile %}
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-user-clock me-2"></i>My Availability</h5>
+                        <p class="card-text">Manage your availability preferences for shift assignments.</p>
+                        <a href="{% url 'manage_availability' user.staff_profile.staff_id %}" class="btn btn-primary">Manage Availability</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>Please login to access the staff scheduling system.</p>
+        <a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+        <a class="btn btn-outline-primary btn-lg ms-2" href="{% url 'register' %}" role="button">Register</a>
+    {% endif %}
+</div>
+{% endblock %}
