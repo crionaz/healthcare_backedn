@@ -1,8 +1,12 @@
 from pathlib import Path
 import os
+from django.templatetags.static import static
+from django.urls import reverse_lazy
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -194,48 +198,16 @@ SWAGGER_SETTINGS = {
 
 
 UNFOLD = {
-    "SITE_TITLE": "Custom suffix in <title> tag",
-    "SITE_HEADER": "Appears in sidebar at the top",
-    "SITE_SUBHEADER": "Appears under SITE_HEADER",
-    # "SITE_DROPDOWN": [
-    #     {
-    #         "icon": "diamond",
-    #         "title": _("My site"),
-    #         "link": "https://example.com",
-    #     },
-    #     # ...
-    # ],
-    "SITE_URL": "/",
-    # "SITE_ICON": lambda request: static("icon.svg"),  # both modes, optimise for 32px height
-    "SITE_ICON": {
-        # "light": lambda request: static("icon-light.svg"),  # light mode
-        # "dark": lambda request: static("icon-dark.svg"),  # dark mode
-    },
-    # "SITE_LOGO": lambda request: static("logo.svg"),  # both modes, optimise for 32px height
-    "SITE_LOGO": {
-        # "light": lambda request: static("logo-light.svg"),  # light mode
-        # "dark": lambda request: static("logo-dark.svg"),  # dark mode
-    },
-    "SITE_SYMBOL": "speed",  # symbol from icon set
-    # "SITE_FAVICONS": [
-    #     {
-    #         "rel": "icon",
-    #         "sizes": "32x32",
-    #         "type": "image/svg+xml",
-    #         # "href": lambda request: static("favicon.svg"),
-    #     },
-    # ],
+    "SITE_TITLE": "Healthcare Staff Scheduling",
+    "SITE_DESCRIPTION": "A sample application for managing healthcare staff scheduling.",
+    "SITE_FOOTER": "© 2025 Healthcare Staff Scheduling. All rights reserved.",
+    "SITE_HEADER": "Healthcare Staff Scheduling",
+    "SITE_SUBHEADER": "Manage your healthcare staff efficiently",
+   
     "SHOW_HISTORY": True, # show/hide "History" button, default: True
     "SHOW_VIEW_ON_SITE": True, # show/hide "View on site" button, default: True
-    "SHOW_BACK_BUTTON": False, # show/hide "Back" button on changeform in header, default: False
-    "ENVIRONMENT": "sample_app.environment_callback", # environment name in header
-    "ENVIRONMENT_TITLE_PREFIX": "sample_app.environment_title_prefix_callback", # environment name prefix in title tag
-    "DASHBOARD_CALLBACK": "sample_app.dashboard_callback",
-    "THEME": "dark", # Force theme: "dark" or "light". Will disable theme switcher
-    "LOGIN": {
-        # "image": lambda request: static("sample/login-bg.jpg"),
-        # "redirect_after": lambda request: reverse_lazy("admin:APP_MODEL_changelist"),
-    },
+    "SHOW_BACK_BUTTON": True, # show/hide "Back" button on changeform in header, default: False
+    "ENVIRONMENT": "DEV", # environment name in header
     "BORDER_RADIUS": "6px",
     "COLORS": {
         "base": {
@@ -273,39 +245,103 @@ UNFOLD = {
             "important-dark": "var(--color-base-100)",  # text-base-100
         },
     },
-    # "EXTENSIONS": {
-    #     "modeltranslation": {
-    #         "flags": {
-    #             "en": "🇬🇧",
-    #             "fr": "🇫🇷",
-    #             "nl": "🇧🇪",
-    #         },
-    #     },
-    # },
+
     # "SIDEBAR": {
     #     "show_search": False,  # Search in applications and models names
-    #     "show_all_applications": False,  # Dropdown with all applications and models
+    #     "show_all_applications": True,  # Dropdown with all applications and models
     #     "navigation": [
     #         {
-    #             "title": _("Navigation"),
+    #             "title": "Staff Management",
     #             "separator": True,  # Top border
     #             "collapsible": True,  # Collapsible group of links
     #             "items": [
     #                 {
-    #                     "title": _("Dashboard"),
+    #                     "title": "Dashboard",
     #                     "icon": "dashboard",  # Supported icon set: https://fonts.google.com/icons
     #                     "link": reverse_lazy("admin:index"),
-    #                     "badge": "sample_app.badge_callback",
-    #                     "permission": lambda request: request.user.is_superuser,
+    #                     # "permission": lambda request: request.user.is_superuser,
     #                 },
     #                 {
-    #                     "title": _("Users"),
+    #                     "title": "Staff Members",
     #                     "icon": "people",
-    #                     "link": reverse_lazy("admin:auth_user_changelist"),
+    #                     "link": reverse_lazy("admin:staff_staffmember_changelist"),
+    #                     # "permission": lambda request: request.user.is_superuser,
+    #                 },
+    #                 # {
+    #                 #     "title": "Base User",
+    #                 #     "icon": "users",
+    #                 #     "link": reverse_lazy("admin:auth.user_changelist"),
+    #                 #     # "permission": lambda request: request.user.is_superuser,
+    #                 # },
+    #             ],
+    #         },
+    #         {
+    #             "title": "Departments",
+    #             "separator": True,  # Top border
+    #             "collapsible": True,  # Collapsible group of links
+    #             "items": [
+    #                 {
+    #                     "title": "Department List",
+    #                     "icon": "list",
+    #                     "link": reverse_lazy("admin:department_department_changelist"),
+    #                     # "permission": lambda request: request.user.is_superuser,
+    #                 },
+    #                 {
+    #                     "title": "Add Department",
+    #                     "icon": "add",
+    #                     "link": reverse_lazy("admin:department_department_add"),
+    #                     # "permission": lambda request: request.user.is_superuser,
     #                 },
     #             ],
     #         },
-    #     ],
+    #         {
+    #             "title": "Roles Management",
+    #             "separator": True,  # Top border
+    #             "collapsible": True,  # Collapsible group of links
+    #             "items": [
+    #                 {
+    #                     "title": "Role List",
+    #                     "icon": "list",
+    #                     "link": reverse_lazy("admin:role_role_changelist"),
+    #                     # "permission": lambda request: request.user.is_superuser,
+    #                 },
+    #                 {
+    #                     "title": "Add Role",
+    #                     "icon": "add",
+    #                     "link": reverse_lazy("admin:role_role_add"),
+    #                     # "permission": lambda request: request.user.is_superuser,
+    #                 },
+    #             ],
+    #         },
+    #         {
+    #             "title": "Shift Management",
+    #             "separator": True,  # Top border
+    #             "collapsible": True,  # Collapsible group of links
+    #             "items": [
+    #                 {
+    #                     "title": "Shift List",
+    #                     "icon": "list",
+    #                     "link": reverse_lazy("admin:shift_shift_changelist"),
+    #                 },
+    #                 {
+    #                     "title": "Add Shift",
+    #                     "icon": "add",
+    #                     "link": reverse_lazy("admin:shift_shift_add"),
+    #                     # "permission": lambda request: request.user.is_superuser,
+    #                 },
+    #                 {
+    #                     "title": "Shift Swap Requests",
+    #                     "icon": "swap_horiz",
+    #                     "link": reverse_lazy("admin:shift_swaprequest_changelist"),
+    #                 },
+    #                 {
+    #                     "title": "Shift Assignments",
+    #                     "icon": "assignment",
+    #                     "link": reverse_lazy("admin:shift_shiftassignment_changelist"),
+    #                 },
+    #             ],
+    #         },
+    #     ]
     # },
     # "TABS": [
     #     {
