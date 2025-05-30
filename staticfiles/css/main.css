@@ -1,0 +1,74 @@
+/* Custom styles for Healthcare Staff Scheduling System */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+.role-doctor {
+    background-color: rgba(0, 123, 255, 0.1);
+    border-left: 4px solid #007bff;
+}
+
+.role-nurse {
+    background-color: rgba(40, 167, 69, 0.1);
+    border-left: 4px solid #28a745;
+}
+
+.role-technician {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-left: 4px solid #ffc107;
+}
+
+.shift-morning {
+    background-color: rgba(255, 235, 59, 0.2);
+}
+
+.shift-evening {
+    background-color: rgba(156, 39, 176, 0.1);
+}
+
+.shift-night {
+    background-color: rgba(33, 37, 41, 0.1);
+}
+
+.calendar-day {
+    min-height: 120px;
+    border: 1px solid #ddd;
+}
+
+.calendar-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.today {
+    background-color: rgba(0, 123, 255, 0.05);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+.staff-card {
+    transition: all 0.3s ease;
+}
+
+.staff-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.attendance-present {
+    color: #28a745;
+}
+
+.attendance-absent {
+    color: #dc3545;
+}
+
+.attendance-late {
+    color: #fd7e14;
+}

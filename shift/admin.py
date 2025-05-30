@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import Shift, ShiftAssignment, ShiftSwapRequest
+from unfold.admin import ModelAdmin
 
 # Register your models here.
 @admin.register(Shift)
-class ShiftAdmin(admin.ModelAdmin):
+class ShiftAdmin(ModelAdmin):
     list_display = ('name', 'start_time', 'end_time', 'break_duration')
     list_filter = ('start_time', 'end_time')
     search_fields = ('name',)
@@ -17,7 +18,7 @@ class ShiftAdmin(admin.ModelAdmin):
     )
 
 @admin.register(ShiftAssignment)
-class ShiftAssignmentAdmin(admin.ModelAdmin):
+class ShiftAssignmentAdmin(ModelAdmin):
     list_display = ('staff_member', 'shift', 'date', 'is_active')
     list_filter = ('is_active', 'date', 'shift')
     search_fields = ('staff_member__user__first_name', 'staff_member__user__last_name')
@@ -28,7 +29,7 @@ class ShiftAssignmentAdmin(admin.ModelAdmin):
         return super().get_queryset(request).select_related('staff_member__user', 'shift')
 
 @admin.register(ShiftSwapRequest)
-class ShiftSwapRequestAdmin(admin.ModelAdmin):
+class ShiftSwapRequestAdmin(ModelAdmin):
     list_display = ('requester_info', 'recipient', 'status', 'created_at')
     list_filter = ('status', 'created_at')
     search_fields = ('requester_assignment__staff_member__user__username', 'recipient__user__username')

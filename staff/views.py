@@ -32,6 +32,7 @@ class StaffMemberViewSet(viewsets.ModelViewSet):
     queryset = StaffMember.objects.all()
     serializer_class = StaffMemberSerializer
     permission_classes = [permissions.IsAuthenticated]
+
     
     def get_queryset(self):
         """
@@ -141,3 +142,25 @@ class StaffMemberViewSet(viewsets.ModelViewSet):
             
         serializer = LeaveRequestSerializer(leave_requests, many=True)
         return Response(serializer.data)
+    
+    @swagger_auto_schema(
+        method='get',
+        operation_description="Get current user profile if associated with a staff member",
+        responses={200: 'Current staff member profile', 404: 'No staff member found for current user'}
+    )
+    @action(detail=False, methods=['get'])
+    def me(self, request):
+        """
+        Returns the staff member profile associated with the current authenticated user
+        """
+        try:
+            staff_member = StaffMember.objects.get(user=request.user)
+            serializer = self.get_serializer(staff_member)
+            return Response(serializer.data)
+        except StaffMember.DoesNotExist:
+            return Response(
+                {'error': 'No staff member profile found for the current user'}, 
+                status=status.HTTP_404_NOT_FOUND
+            )
+    
+

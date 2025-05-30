@@ -2,5 +2,8 @@ Django
 django-crispy-forms==2.4
 crispy-bootstrap5==2025.4
 django-rest-framework
+djangorestframework-simplejwt
 drf-yasg
 django-cors-headers
+django-unfold
+django-admin-interface

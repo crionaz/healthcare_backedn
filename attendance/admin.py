@@ -1,8 +1,10 @@
 from django.contrib import admin
 from .models import LeaveRequest, Attendance
+from unfold.admin import ModelAdmin
+
 
 @admin.register(LeaveRequest)
-class LeaveRequestAdmin(admin.ModelAdmin):
+class LeaveRequestAdmin(ModelAdmin):
     list_display = ('staff_member', 'leave_type_display', 'start_date', 'end_date', 'status_display', 'approved_by')
     list_filter = ('status', 'leave_type', 'start_date')
     search_fields = ('staff_member__user__first_name', 'staff_member__user__last_name', 'reason')
@@ -35,7 +37,7 @@ class LeaveRequestAdmin(admin.ModelAdmin):
     actions = ['approve_leaves', 'reject_leaves']
 
 @admin.register(Attendance)
-class AttendanceAdmin(admin.ModelAdmin):
+class AttendanceAdmin(ModelAdmin):
     list_display = ('staff_member', 'date', 'shift_assignment', 'status_display', 'check_in_time', 'check_out_time')
     list_filter = ('status', 'date')
     search_fields = ('staff_member__user__first_name', 'staff_member__user__last_name', 'notes')

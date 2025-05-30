@@ -1,8 +1,9 @@
 from django.contrib import admin
 from .models import StaffMember
+from unfold.admin import ModelAdmin
 
 # Register your models here.
-class StaffMemberAdmin(admin.ModelAdmin):
+class StaffMemberAdmin(ModelAdmin):
     list_display = ('staff_id', 'get_full_name', 'department', 'role', 'phone_number')
     list_filter = ('department', 'role')
     search_fields = ('user__first_name', 'user__last_name', 'staff_id', 'phone_number')
